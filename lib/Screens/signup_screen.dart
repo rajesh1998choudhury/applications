@@ -1,0 +1,228 @@
+
+// ignore_for_file: unused_local_variable
+
+import 'package:applications/Screens/login_screen.dart';
+import 'package:applications/Screens/product_screen.dart';
+import 'package:applications/Service/auth_services.dart';
+import 'package:applications/Themes/colors.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
+
+  @override
+  _SignupScreenState createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final _nameController =  TextEditingController();
+  final _phoneNumberController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  bool _passwordVisible = false;
+  // final bool _isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          // padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.only(left: 10, right: 10, top: 100),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Text(
+                    'Welcome to our grocery shop',
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                const SizedBox(height: 40),
+                SizedBox(
+                  child: Card(
+                    color: Colors.white,
+                    elevation: 1.0,
+                            margin: const EdgeInsets.all(0.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            surfaceTintColor: Colors.transparent,
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    const SizedBox(height: 30.0),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Name',
+                        style: TextStyle(color: Colors.grey[600]),
+                      ),
+                    ),
+                    const SizedBox(height: 8.0),
+                    // Name Input Field
+                    TextFormField(
+                      controller: _nameController,
+                      keyboardType: TextInputType.name,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                      color: Colors.red, // Default border color
+                      width: 1.0,
+                        ),
+                        ),
+                      ),
+                      validator: (value) {
+                      if (value == null || value.isEmpty) {
+                      return 'Please enter your name';
+                      }
+                      // Add  validation if needed
+                      return null;
+                    },
+                    ),
+                    const SizedBox(height: 16.0,),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Phone Number',
+                        style: TextStyle(color: Colors.grey[600]),
+                      ),
+                    ),
+                    const SizedBox(height: 8.0),
+                    // Phone Number Input Field
+                    TextFormField(
+                      controller: _phoneNumberController,
+                      keyboardType: TextInputType.phone,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        // prefixIcon: Icon(Icons.phone),
+                      ),
+                      validator: (value) {
+                      if (value == null || value.isEmpty) {
+                      return 'Please enter your mobile number';
+                      }
+                      // Add  validation if needed
+                      return null;
+                    },
+                    ),
+                    const SizedBox(height: 16.0),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Password',
+                        style: TextStyle(color: Colors.grey[600]),
+                      ),
+                    ),
+                    const SizedBox(height: 8.0),
+                    // Password Input Field
+                          TextFormField(
+                    controller: _passwordController,
+                    obscureText: !_passwordVisible,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      suffixIcon: IconButton(
+                        icon: Icon(_passwordVisible ? Icons.visibility : Icons.visibility_off),
+                        onPressed: () {
+                          setState(() {
+                            _passwordVisible = !_passwordVisible;
+                          });
+                        },
+                      ),
+                    ),
+                    validator: (value) {
+                       if (value == null || value.isEmpty) {
+                      return 'Please enter your password';
+                      }
+                      // Add  validation if needed (e.g., password strength)
+                      return null;
+                    },
+                  ),
+                    const SizedBox(height: 20.0),
+                      Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween, 
+                      children: <Widget>[
+                      const SizedBox(
+                        child: Text(
+                          'Sign Up',
+                          style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                      ),
+                      SizedBox(
+                        child: authProvider.isLoading 
+                        ? const CircularProgressIndicator() 
+                          : ElevatedButton.icon(
+                          label: const Icon(Icons.arrow_forward_rounded) ,
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
+                            backgroundColor: kMainColor,
+                            foregroundColor: Colors.white
+                          ),
+                          onPressed: () async{
+                              if (_formKey.currentState!.validate()) {
+                          authProvider.register(
+                            _nameController.text,
+                            _phoneNumberController.text,
+                            _passwordController.text,
+                          )
+                          .then((user){
+                            if (mounted) {
+                            // Handle successful registration
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const ProductScreen()),
+                            );
+                          } else {
+                            // Handle registration failure
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Registration failed'),
+                              ),
+                            );
+                          }
+                          });
+                          }
+                          })
+                      ),
+                      ],
+                    ),
+                    const SizedBox(height: 16.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Already Have Account? "),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context)=> const LoginScreen()),);
+                        },
+                        child: const Text('Log In', 
+                        style: TextStyle(color: Colors.green),),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 40.0),
+                  ],
+                              ),
+                            ),
+                          ),
+                ),    
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
