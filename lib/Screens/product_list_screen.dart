@@ -101,33 +101,57 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                   width: 150,
                                   height: 100,
                                   decoration: const BoxDecoration(),
-                                  child: const Column(
+                                  child: Column(
                                       // mainAxisAlignment: MainAxisAlignment.end,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 10,
                                         ),
-                                        Text("demo"),
-                                        SizedBox(
+                                        Text(
+                                          'Price: ${product.price}',
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        const SizedBox(
                                           height: 20,
                                         ),
-                                        Text("demo"),
-                                        SizedBox(
+                                        Text(
+                                          'MOQ: ${product.moq}',
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        const SizedBox(
                                           height: 10,
                                         ),
+                                        Text(
+                                          'Price: ${product.price}',
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text(
+                                          'Discount Price: ${product.discountPrice}',
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        )
                                       ])),
                               const SizedBox(
                                 width: 10,
                               ),
-                              Container(
-                                width: 160,
-                                height: 100,
-                                decoration: const BoxDecoration(
-                                  color: Colors.green,
-                                ),
-                              ),
+                              // Container(
+                              //   width: 160,
+                              //   height: 100,
+                              //   decoration: const BoxDecoration(
+                              //     color: Colors.green,
+                              //   ),
+                              // ),
                               //  Text(
                               //       'Product Name: ${product.name}',
                               //       style: const TextStyle(fontWeight: FontWeight.bold),

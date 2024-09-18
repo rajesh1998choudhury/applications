@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 final GlobalKey<NavigatorState> navigatorkey = GlobalKey<NavigatorState>();
 void main() {
-  // runApp(const MyApp());
   runApp(
     MultiProvider(
       providers: [
@@ -26,11 +25,10 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return  const MaterialApp(
-      title: 'Flutter Demo',
+    return const MaterialApp(
+      title: '',
       debugShowCheckedModeBanner: false,
-      home: 
-      SplashScreen(),
+      home: SplashScreen(),
     );
   }
 }

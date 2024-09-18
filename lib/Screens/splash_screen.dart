@@ -1,4 +1,3 @@
-
 import 'package:applications/Screens/signup_screen.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -19,20 +18,22 @@ class _SplashScreenState extends State<SplashScreen> {
     _startAnimation();
 
     Timer(const Duration(seconds: 5), () {
-      if(mounted) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const SignupScreen()),
-      );}
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const SignupScreen()),
+        );
+      }
     });
   }
 
   _startAnimation() {
     Future.delayed(const Duration(milliseconds: 2000), () {
       if (mounted) {
-      setState(() {
-        _opacity = 1.0;
-      });}
+        setState(() {
+          _opacity = 1.0;
+        });
+      }
     });
   }
 
@@ -53,8 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   width: 100,
                   height: 100,
                 ),
-                const SizedBox(width: 10), 
-                
+                const SizedBox(width: 10),
                 const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -67,12 +67,12 @@ class _SplashScreenState extends State<SplashScreen> {
                       ),
                     ),
                     Text(
-                  'your daily needs',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                  ),
-                ),
+                      'your daily needs',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
+                    ),
                   ],
                 ),
               ],
