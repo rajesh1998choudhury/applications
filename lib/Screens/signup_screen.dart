@@ -1,8 +1,7 @@
 // ignore_for_file: unused_local_variable
 
+import 'package:applications/Providers/auth_provider.dart';
 import 'package:applications/Screens/login_screen.dart';
-import 'package:applications/Screens/product_screen.dart';
-import 'package:applications/Service/auth_services.dart';
 import 'package:applications/Themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -214,9 +213,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               SizedBox(
                                   child: authProvider.isLoading
                                       ? const CircularProgressIndicator()
-                                      : ElevatedButton.icon(
-                                          label: const Icon(
-                                              Icons.arrow_forward_rounded),
+                                      : ElevatedButton(
                                           style: ElevatedButton.styleFrom(
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
@@ -225,36 +222,74 @@ class _SignupScreenState extends State<SignupScreen> {
                                               backgroundColor: kMainColor,
                                               foregroundColor: Colors.white),
                                           onPressed: () async {
+                                            // if (_formKey.currentState!
+                                            //     .validate()) {
+                                            //   authProvider
+                                            //       .s(
+                                            //     _nameController.text,
+                                            //     _phoneNumberController.text,
+                                            //     _passwordController.text,
+                                            //   )
+                                            //       .then((user) {
+                                            //     if (mounted) {
+                                            //       // Handle successful registration
+                                            //       Navigator.push(
+                                            //         context,
+                                            //         MaterialPageRoute(
+                                            //             builder: (context) =>
+                                            //                 const ProductScreen()),
+                                            //       );
+                                            //     } else {
+                                            //       // Handle registration failure
+                                            //       ScaffoldMessenger.of(context)
+                                            //           .showSnackBar(
+                                            //         const SnackBar(
+                                            //           content: Text(
+                                            //               'Registration failed'),
+                                            //         ),
+                                            //       );
+                                            //     }
+                                            //   });
+                                            // }
                                             if (_formKey.currentState!
                                                 .validate()) {
-                                              authProvider
-                                                  .register(
-                                                _nameController.text,
-                                                _phoneNumberController.text,
-                                                _passwordController.text,
-                                              )
-                                                  .then((user) {
-                                                if (mounted) {
-                                                  // Handle successful registration
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            const ProductScreen()),
-                                                  );
-                                                } else {
-                                                  // Handle registration failure
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                    const SnackBar(
-                                                      content: Text(
-                                                          'Registration failed'),
-                                                    ),
-                                                  );
-                                                }
+                                              Provider.of<AuthProvider>(context,
+                                                      listen: false)
+                                                  .signup(
+                                                      _nameController.text,
+                                                      _emailController.text,
+                                                      _phoneNumberController
+                                                          .text,
+                                                      _passwordController.text)
+                                                  .then((_) {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  const SnackBar(
+                                                    content: Text(
+                                                        'Congratulations! Your account is created.'),
+                                                    duration:
+                                                        Duration(seconds: 1),
+                                                  ),
+                                                );
+                                                // Navigate to Login Screen after 1 seconds
+                                                Future.delayed(
+                                                    const Duration(seconds: 1),
+                                                    () {
+                                                  Navigator
+                                                      .pushReplacementNamed(
+                                                          context, '/login');
+                                                });
+                                              }).catchError((error) {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(SnackBar(
+                                                  content:
+                                                      Text(error.toString()),
+                                                ));
                                               });
                                             }
-                                          })),
+                                          },
+                                          child: const Icon(
+                                              Icons.arrow_forward_rounded))),
                             ],
                           ),
                           const SizedBox(height: 16.0),

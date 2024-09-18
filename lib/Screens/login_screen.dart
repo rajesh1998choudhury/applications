@@ -1,6 +1,7 @@
+import 'package:applications/Providers/auth_provider.dart';
+import 'package:applications/Screens/add_product_screen.dart';
 import 'package:applications/Screens/product_screen.dart';
 import 'package:applications/Screens/signup_screen.dart';
-import 'package:applications/Service/auth_services.dart';
 import 'package:applications/Themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +15,6 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _phoneNumberController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -138,9 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               SizedBox(
                                   child: authProvider.isLoading
                                       ? const CircularProgressIndicator()
-                                      : ElevatedButton.icon(
-                                          label: const Icon(
-                                              Icons.arrow_forward_rounded),
+                                      : ElevatedButton(
                                           style: ElevatedButton.styleFrom(
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
@@ -148,62 +146,72 @@ class _LoginScreenState extends State<LoginScreen> {
                                               ),
                                               backgroundColor: kMainColor,
                                               foregroundColor: Colors.white),
-                                          onPressed: () {
-                                            if (_formKey.currentState!
-                                                .validate()) {
-                                              //                   authProvider.login(
-                                              //                     _phoneNumberController.text.trim(),
-                                              //                     _passwordController.text.trim(),
-                                              //                   );
-                                              //                   Navigator.push(
-                                              //   context,
-                                              //   MaterialPageRoute(builder: (context) => const ProductScreen()),
-                                              // );
-                                              if (_formKey.currentState!
-                                                  .validate()) {
-                                                final email =
-                                                    _phoneNumberController.text;
-                                                final password =
-                                                    _passwordController.text;
+                                          onPressed: () async {
+                                            // if (_formKey.currentState!
+                                            //     .validate()) {
+                                            //     final email =
+                                            //         _phoneNumberController.text;
+                                            //     final password =
+                                            //         _passwordController.text;
 
-                                                Provider.of<AuthProvider>(
-                                                        context,
-                                                        listen: false)
-                                                    .login(email, password)
-                                                    .then((user) {
-                                                  if (mounted) {
-                                                    // Handle successful login
-                                                    // Navigate to home or other screen
-                                                    Navigator.pushReplacement(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              const ProductScreen()),
-                                                    );
-                                                  } else {
-                                                    // Handle login failure
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .showSnackBar(
-                                                      const SnackBar(
-                                                        content: Text(
-                                                            'Login failed'),
-                                                      ),
-                                                    );
-                                                  }
-                                                }).catchError((error) {
-                                                  // Handle errors
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                    SnackBar(
-                                                      content: Text(
-                                                          'An error occurred: $error'),
-                                                    ),
-                                                  );
-                                                });
-                                              }
-                                            }
-                                          })),
+                                            //     Provider.of<AuthProvider>(
+                                            //             context,
+                                            //             listen: false)
+                                            //         .login(email, password)
+                                            //         .then((user) {
+                                            //       if (mounted) {
+                                            //         // Handle successful login
+                                            //         // Navigate to home or other screen
+                                            //         Navigator.pushReplacement(
+                                            //           context,
+                                            //           MaterialPageRoute(
+                                            //               builder: (context) =>
+                                            //                   const ProductScreen()),
+                                            //         );
+                                            //       } else {
+                                            //         // Handle login failure
+                                            //         ScaffoldMessenger.of(
+                                            //                 context)
+                                            //             .showSnackBar(
+                                            //           const SnackBar(
+                                            //             content: Text(
+                                            //                 'Login failed'),
+                                            //           ),
+                                            //         );
+                                            //       }
+                                            //     }).catchError((error) {
+                                            //       // Handle errors
+                                            //       ScaffoldMessenger.of(context)
+                                            //           .showSnackBar(
+                                            //         SnackBar(
+                                            //           content: Text(
+                                            //               'An error occurred: $error'),
+                                            //         ),
+                                            //       );
+                                            //     });
+                                            //   }
+                                            Provider.of<AuthProvider>(context,
+                                                    listen: false)
+                                                .login(_emailController.text,
+                                                    _passwordController.text)
+                                                .then((_) {
+                                              Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const ProductScreen()),
+                                              );
+                                            }).catchError((error) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                    content:
+                                                        Text('Error: $error')),
+                                              );
+                                            });
+                                          },
+                                          child: const Icon(
+                                              Icons.arrow_forward_rounded))),
                             ],
                           ),
                           const SizedBox(height: 16.0),

@@ -1,5 +1,8 @@
+import 'package:applications/Providers/auth_provider.dart';
+import 'package:applications/Screens/login_screen.dart';
+import 'package:applications/Screens/product_screen.dart';
+import 'package:applications/Screens/signup_screen.dart';
 import 'package:applications/Screens/splash_screen.dart';
-import 'package:applications/Service/auth_services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,10 +28,14 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: '',
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: const SplashScreen(),
+      routes: {
+        '/login': (ctx) => const LoginScreen(),
+        '/signup': (ctx) => const SignupScreen(),
+        '/home': (ctx) => const ProductScreen(),
+      },
     );
   }
 }
