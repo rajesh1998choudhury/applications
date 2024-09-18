@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 final GlobalKey<NavigatorState> navigatorkey = GlobalKey<NavigatorState>();
 void main() {
-  // runApp(const MyApp());
   runApp(
     MultiProvider(
       providers: [
