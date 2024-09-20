@@ -214,6 +214,7 @@ class _ProductScreenState extends State<ProductScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: "",
+            
             // 'Profile',
           ),
         ],
@@ -271,7 +272,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       onTap: () {
                         Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context)=> const ProductListScreen()),);
+                    MaterialPageRoute(builder: (context)=>  const ProductListScreen()),);
                     },
                               ),
                               ],

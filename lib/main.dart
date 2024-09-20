@@ -30,8 +30,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+      initialRoute: '/',
       routes: {
+        '/': (context) => const SplashScreen(),
         '/login': (ctx) => const LoginScreen(),
         '/signup': (ctx) => const SignupScreen(),
         '/home': (ctx) => const ProductScreen(),

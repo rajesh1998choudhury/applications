@@ -1,6 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:applications/Screens/signup_screen.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -15,6 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    _checkLoginSatus();
     _startAnimation();
 
     Timer(const Duration(seconds: 5), () {
@@ -35,6 +39,21 @@ class _SplashScreenState extends State<SplashScreen> {
         });
       }
     });
+  }
+
+  Future<void> _checkLoginSatus() async {
+    await Future.delayed(const Duration(seconds: 2));
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? loginToken = prefs.getString('user_token');
+
+    if (loginToken == null) {
+      if (mounted) {
+        Navigator.pushReplacementNamed(context, '/login');
+      }
+    } else {
+      Navigator.pushReplacementNamed(context, '/home');
+    }
   }
 
   @override

@@ -27,6 +27,7 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
@@ -34,25 +35,24 @@ class _SignupScreenState extends State<SignupScreen> {
           child: Form(
             key: _formKey,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              // mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Text(
-                    'Welcome to our grocery shop',
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.start,
-                  ),
+                // const SizedBox.shrink(),
+                const Text(
+                  '   Welcome to our\n   grocery shop',
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.start,
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 10),
                 SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.7,
                   child: Card(
                     color: Colors.white,
-                    elevation: 1.0,
+                    elevation: 10.0,
                     margin: const EdgeInsets.all(0.0),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
+                      borderRadius: BorderRadius.circular(20.0),
                     ),
                     surfaceTintColor: Colors.transparent,
                     child: Padding(

@@ -1,5 +1,4 @@
 import 'package:applications/Providers/auth_provider.dart';
-import 'package:applications/Screens/add_product_screen.dart';
 import 'package:applications/Screens/product_screen.dart';
 import 'package:applications/Screens/signup_screen.dart';
 import 'package:applications/Themes/colors.dart';
@@ -24,6 +23,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(left: 10, right: 10, top: 100),
@@ -34,18 +35,19 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'Welcome Back to our grocery shop',
+                  '  Welcome Back to \n  our grocery shop',
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 20),
                 SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.6,
                   child: Card(
                     color: Colors.white,
-                    elevation: 1.0,
+                    elevation: 10.0,
                     margin: const EdgeInsets.all(0.0),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
+                      borderRadius: BorderRadius.circular(20.0),
                     ),
                     surfaceTintColor: Colors.transparent,
                     child: Padding(
@@ -53,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: <Widget>[
-                          const SizedBox(height: 30.0),
+                          const SizedBox(height: 50.0),
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
@@ -61,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               style: TextStyle(color: Colors.grey[600]),
                             ),
                           ),
-                          const SizedBox(height: 8.0),
+                          const SizedBox(height: 10.0),
                           // Email Input Field
                           TextFormField(
                             controller: _emailController,
@@ -83,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               return null;
                             },
                           ),
-                          const SizedBox(height: 16.0),
+                          const SizedBox(height: 30.0),
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
@@ -91,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               style: TextStyle(color: Colors.grey[600]),
                             ),
                           ),
-                          const SizedBox(height: 8.0),
+                          const SizedBox(height: 10.0),
                           // Password Input Field
                           TextFormField(
                             controller: _passwordController,
@@ -122,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               return null;
                             },
                           ),
-                          const SizedBox(height: 20.0),
+                          const SizedBox(height: 40.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -214,7 +216,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               Icons.arrow_forward_rounded))),
                             ],
                           ),
-                          const SizedBox(height: 16.0),
+                          const SizedBox(height: 30.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
